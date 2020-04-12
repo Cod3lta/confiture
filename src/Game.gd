@@ -62,7 +62,7 @@ func _on_Trigger4_body_entered(body):
 			"Bon, il va falloir redescendre",
 			]
 		dialogue_box.write(dialog, true)
-		$Triggers/Trigger5.set_monitoring(true)
+		#$Triggers/Trigger5.set_monitoring(true)
 		$Level.open_garden()
 		$Triggers/Trigger4.queue_free()
 
@@ -138,9 +138,32 @@ func _on_Trigger11_body_entered(body):
 func _on_Trigger12_body_entered(body):
 	if body is KinematicBody2D:
 		$Level.open_front_door()
+		$Triggers/Trigger12.queue_free()
 
 
 func _on_Trigger13_body_entered(body):
 	if body is KinematicBody2D:
 		$Sounds/Music_1.stop()
 		$Sounds/Music_2.play()
+		$Triggers/Trigger13.queue_free()
+
+
+func _on_Trigger14_body_entered(body):
+	if body is KinematicBody2D:
+		$Triggers/Trigger15.set_monitoring(true)
+		$Triggers/Trigger14.queue_free()
+
+
+func _on_Trigger15_body_entered(body):
+	if body is KinematicBody2D:
+		var dialog = [
+			"Woaw !",
+			"Heu . . .",
+			"Raaaaaaaaah",
+			"C'était un rêve . . .",
+			"J'avais enfin l'opportunité de faire quelque chose . . .",
+			"Bon, tant pis.",
+			"Profitons-en pour dormir encore un peu . . ."
+			]
+		dialogue_box.write(dialog, true)
+		$Triggers/Trigger15.queue_free()

@@ -147,7 +147,6 @@ position = Vector2( -3.93391e-06, -13.9833 )
 scale = Vector2( 1.16527, 1.16527 )
 frames = SubResource( 3 )
 animation = "idle"
-frame = 1
 playing = true
 
 [node name="GridSnapper" type="Position2D" parent="."]
@@ -173,5 +172,4 @@ z_index = 1
 texture = ExtResource( 4 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-autoplay = "introduction_zoom_out"
 anims/introduction_zoom_out = SubResource( 4 )
