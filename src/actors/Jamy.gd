@@ -90,6 +90,8 @@ func max_speed_limit():
 	velocity.y = max(velocity.y, -max_speed.y)
 
 func slow_mo_throw_brush():
+	if !can_move:
+		return
 	if Input.is_action_pressed("throw_brush") and Brush.picked:
 		Engine.time_scale = 0.05
 		aim_direction = aim_brush()

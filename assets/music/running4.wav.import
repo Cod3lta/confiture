@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/running4.wav-21055166203f3bf6bbc32a8fe2960a0e.sample"
+
+[deps]
+
+source_file="res://assets/music/running4.wav"
+dest_files=[ "res://.import/running4.wav-21055166203f3bf6bbc32a8fe2960a0e.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

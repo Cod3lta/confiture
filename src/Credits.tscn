@@ -1,0 +1,150 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://assets/font/BalooTammudu2-Medium.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://assets/brush/brush.png" type="Texture" id=2]
+[ext_resource path="res://assets/font/small_text.tres" type="Theme" id=3]
+[ext_resource path="res://assets/chevalet.png" type="Texture" id=4]
+[ext_resource path="res://assets/lit.png" type="Texture" id=5]
+[ext_resource path="res://src/Credits.gd" type="Script" id=6]
+[ext_resource path="res://assets/music/music-fin.ogg" type="AudioStream" id=7]
+
+[sub_resource type="DynamicFont" id=1]
+size = 30
+font_data = ExtResource( 1 )
+
+[sub_resource type="Theme" id=2]
+default_font = SubResource( 1 )
+
+[node name="Credits" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 29.3016
+margin_top = 30.0
+margin_right = -30.6984
+margin_bottom = -30.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+margin_right = 420.0
+margin_bottom = 210.0
+
+[node name="Titre" type="Label" parent="MarginContainer/VBoxContainer"]
+margin_right = 420.0
+margin_bottom = 68.0
+theme = SubResource( 2 )
+text = "Easelement"
+align = 1
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
+margin_top = 72.0
+margin_right = 420.0
+margin_bottom = 91.0
+theme = ExtResource( 3 )
+text = "Un jeu créé par Codelta"
+align = 1
+
+[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer"]
+margin_top = 95.0
+margin_right = 420.0
+margin_bottom = 114.0
+theme = ExtResource( 3 )
+text = "Musiques par M3lodic"
+align = 1
+
+[node name="Label3" type="Label" parent="MarginContainer/VBoxContainer"]
+margin_top = 118.0
+margin_right = 420.0
+margin_bottom = 137.0
+theme = ExtResource( 3 )
+text = "Réalisé pendant la Game Jam Créé ton jeu #1"
+align = 1
+
+[node name="Label4" type="Label" parent="MarginContainer/VBoxContainer"]
+margin_top = 141.0
+margin_right = 420.0
+margin_bottom = 160.0
+theme = ExtResource( 3 )
+text = "Merci d'avoir joué :)"
+align = 1
+
+[node name="Textures" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="Textures"]
+margin_left = 137.597
+margin_top = 33.9422
+margin_right = 176.597
+margin_bottom = 72.9422
+rect_rotation = -4.27885
+texture = ExtResource( 2 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect2" type="TextureRect" parent="Textures"]
+margin_left = 390.088
+margin_top = 233.91
+margin_right = 420.088
+margin_bottom = 269.91
+texture = ExtResource( 4 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect3" type="TextureRect" parent="Textures"]
+margin_left = 50.1052
+margin_top = 246.941
+margin_right = 155.105
+margin_bottom = 269.941
+texture = ExtResource( 5 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.152941, 0.152941, 0.152941, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="."]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -36.0
+margin_top = -53.9506
+margin_right = 35.0
+margin_bottom = -28.9506
+theme = ExtResource( 3 )
+text = "Retour"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MusicFin" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )
+autoplay = true
+[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]

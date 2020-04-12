@@ -32,7 +32,7 @@ func _on_Trigger1_body_entered(body):
 func _on_Trigger2_body_entered(body):
 	if body is KinematicBody2D:
 		var dialog = [
-			"ça fait vraiment super longtemps que j'ai pas remis les pieds ici !",
+			"ça fait vraiment super longtemps que j'ai pas remis les pieds dans ce galetas !",
 			"Il faudra que je nettoie tout ça, c'est vraiment poussiéreux ",
 			". . . ouais, je le ferai un de ces 4."
 			]
@@ -150,7 +150,9 @@ func _on_Trigger13_body_entered(body):
 
 func _on_Trigger14_body_entered(body):
 	if body is KinematicBody2D:
+		$Level/Jamy.set_position(Vector2(399.879, 87.025))
 		$Triggers/Trigger15.set_monitoring(true)
+		$Triggers/Trigger16.set_monitoring(true)
 		$Triggers/Trigger14.queue_free()
 
 
@@ -167,3 +169,8 @@ func _on_Trigger15_body_entered(body):
 			]
 		dialogue_box.write(dialog, true)
 		$Triggers/Trigger15.queue_free()
+
+
+func _on_Trigger16_body_entered(body):
+	if body is KinematicBody2D:
+		get_tree().change_scene("res://path/to/scene.tscn")
