@@ -7,6 +7,8 @@ onready var camera = $GridSnapper/Camera2D
 onready var aim_offset = $Pivot/AimOffset
 onready var aim_sprite = $Pivot/AimOffset/Sprite
 onready var animatedSprite = $AnimatedSprite
+onready var wood_deco = $"../House/WoodDeco"
+onready var wood_deco_2 = $"../WoodDeco2"
 
 export var max_speed = Vector2(500.0, 300.0)
 export var max_walk_speed = 250 #Plus grand pour compenser la friction
@@ -37,6 +39,7 @@ func _physics_process(delta):
 	velocity = move_and_slide(Vector2(velocity.x, velocity.y), Vector2.UP)
 	slow_mo_throw_brush()
 	set_animations()
+	detect_easel()
 
 
 func fall(delta):
@@ -161,3 +164,21 @@ func set_facing():
 		facing = true
 	elif Input.is_action_just_pressed("move_left"):
 		facing = false
+
+
+func detect_easel():
+	var easel_detected = false
+	var wood_deco_position = wood_deco.world_to_map(position)
+	var wood_deco_2_position = wood_deco.world_to_map(position)
+	
+	if wood_deco.get_cell(wood_deco_position.x, wood_deco_position.y-2) == 27:
+		easel_detected = true
+	if wood_deco_2.get_cell(wood_deco_2_position.x-1, wood_deco_2_position.y-2) == 27:
+		easel_detected = true
+		wood_deco_2.set_cell(wood_deco_2_position.x-1, wood_deco_2_position.y-2, -1)
+	if wood_deco_2.get_cell(wood_deco_2_position.x, wood_deco_2_position.y-2) == 27:
+		easel_detected = true
+		wood_deco_2.set_cell(wood_deco_2_position.x, wood_deco_2_position.y-2, -1)
+	
+	if easel_detected:
+		Brush.pick()

@@ -147,7 +147,7 @@ position = Vector2( -3.93391e-06, -13.9833 )
 scale = Vector2( 1.16527, 1.16527 )
 frames = SubResource( 3 )
 animation = "idle"
-frame = 2
+frame = 1
 playing = true
 
 [node name="GridSnapper" type="Position2D" parent="."]
