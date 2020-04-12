@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://src/actors/Jamy.gd" type="Script" id=1]
 [ext_resource path="res://src/actors/GridSnapper.gd" type="Script" id=2]
@@ -19,6 +19,15 @@
 [ext_resource path="res://assets/player/aim/aim_1.png" type="Texture" id=17]
 [ext_resource path="res://assets/player/aim/aim_2.png" type="Texture" id=18]
 [ext_resource path="res://assets/player/aim/aim_0.png" type="Texture" id=19]
+[ext_resource path="res://assets/player/aim/aim_4.png" type="Texture" id=20]
+[ext_resource path="res://assets/player/aim/aim_5.png" type="Texture" id=21]
+[ext_resource path="res://assets/player/aim/aim_3.png" type="Texture" id=22]
+[ext_resource path="res://assets/player/fall/fall_0.png" type="Texture" id=23]
+[ext_resource path="res://assets/player/fall/fall_1.png" type="Texture" id=24]
+[ext_resource path="res://assets/player/fall/fall_3.png" type="Texture" id=25]
+[ext_resource path="res://assets/player/fall/fall_2.png" type="Texture" id=26]
+[ext_resource path="res://assets/player/jump/jump_0.png" type="Texture" id=27]
+[ext_resource path="res://assets/player/hang/hang_0.png" type="Texture" id=28]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 7.5, 11.75 )
@@ -48,24 +57,44 @@ animations = [ {
 "name": "aim_ground_up",
 "speed": 5.0
 }, {
+"frames": [ ExtResource( 22 ) ],
+"loop": true,
+"name": "aim_air_up",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 20 ) ],
+"loop": true,
+"name": "aim_air_middle",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 21 ) ],
+"loop": true,
+"name": "aim_air_down",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 23 ), ExtResource( 24 ), ExtResource( 26 ), ExtResource( 25 ) ],
+"loop": true,
+"name": "fall",
+"speed": 10.0
+}, {
+"frames": [ ExtResource( 27 ) ],
+"loop": true,
+"name": "jump",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 9 ), ExtResource( 10 ), ExtResource( 12 ), ExtResource( 11 ), ExtResource( 16 ), ExtResource( 15 ), ExtResource( 13 ), ExtResource( 14 ) ],
 "loop": true,
 "name": "run",
 "speed": 12.0
+}, {
+"frames": [ ExtResource( 28 ) ],
+"loop": true,
+"name": "hang",
+"speed": 5.0
 } ]
 
 [node name="Jamy" type="KinematicBody2D"]
 script = ExtResource( 1 )
-
-[node name="ColorRect" type="ColorRect" parent="."]
-visible = false
-margin_left = -8.0
-margin_top = -28.0
-margin_right = 8.0
-color = Color( 0, 0, 0, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, -11.75 )
@@ -82,21 +111,21 @@ shadow_enabled = true
 [node name="BrushDetector" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BrushDetector"]
-position = Vector2( 0, -3.7499 )
+position = Vector2( 0, -9.23818 )
 shape = SubResource( 2 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( -3.93391e-06, -13.9833 )
 scale = Vector2( 1.16527, 1.16527 )
 frames = SubResource( 3 )
-animation = "idle"
-frame = 1
+animation = "hang"
 playing = true
 
 [node name="GridSnapper" type="Position2D" parent="."]
 script = ExtResource( 2 )
 
 [node name="Camera2D" type="Camera2D" parent="GridSnapper"]
+anchor_mode = 0
 current = true
 smoothing_enabled = true
 smoothing_speed = 10.0
@@ -112,3 +141,5 @@ visible = false
 scale = Vector2( 0.64, 0.64 )
 z_index = 1
 texture = ExtResource( 4 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]

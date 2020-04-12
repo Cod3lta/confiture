@@ -8,23 +8,26 @@ onready var aim_offset = $Pivot/AimOffset
 onready var aim_sprite = $Pivot/AimOffset/Sprite
 onready var animatedSprite = $AnimatedSprite
 
-export var max_speed = Vector2(100.0, 5000.0)
-export var max_walk_speed = 100.0
+export var max_speed = Vector2(500.0, 300.0)
+export var max_walk_speed = 250 #Plus grand pour compenser la friction
 export var jump_amount = 300
-export var gravity = 30.0
+export var gravity = 1000
+export var shoot_brush_impact = Vector2(700, 300)
 
-var acceleration = 20.0
+var wall_jump_amount = 100
+var acceleration = 70.0 #Plus grand pour compenser la friction
 var deceleration = 0.4
 var velocity = Vector2.ZERO
 var brush_picked: bool = false
 var aim_direction = Vector2.ZERO
 var facing: bool #true -> right, false -> left
+var can_wall_jump: bool = true
 
 
 func _physics_process(delta):
+	run()
 	fall(delta)
 	jump(delta)
-	run()
 	max_speed_limit()
 	velocity = move_and_slide(Vector2(velocity.x, velocity.y), Vector2.UP)
 	slow_mo_throw_brush()
@@ -36,9 +39,14 @@ func fall(delta):
 
 
 func jump(delta):
-	print(is_on_floor())
-	if Input.is_action_just_pressed("jump") and (is_on_floor() or is_on_wall()):
-		velocity.y = -jump_amount
+	if Input.is_action_just_pressed("jump"):
+		if is_on_floor():
+			can_wall_jump = true
+			velocity.y = -jump_amount
+		elif is_on_wall() and can_wall_jump:
+			velocity.y = -jump_amount
+			velocity.x = wall_jump_amount if !facing else -wall_jump_amount
+			can_wall_jump = false
 
 
 func get_input_x_strength():
@@ -46,29 +54,30 @@ func get_input_x_strength():
 
 
 func run():
-	var player_imput_x = get_input_x_strength()
-	if not Input.is_action_pressed("throw_brush"):
-		var walk_speed
+	var player_input_x = get_input_x_strength()
+	if not Input.is_action_pressed("throw_brush") or aim_direction.length() == 0:
+		var walk_acceleration
 		if(is_on_floor()):
-			walk_speed = player_imput_x * acceleration
+			walk_acceleration = player_input_x * acceleration
 		else:
-			walk_speed = player_imput_x * acceleration / 5
-		velocity.x += walk_speed
-	if player_imput_x == 0:
-		friction()
-	return player_imput_x
+			walk_acceleration = player_input_x * acceleration / 5
+		if not (velocity.x + walk_acceleration > max_walk_speed or velocity.x + walk_acceleration < -max_walk_speed):
+			#Moment d'accélération
+			velocity.x += walk_acceleration
+	
+	friction()
+
+func friction():
+	if is_on_floor():
+		velocity.x = lerp(velocity.x, 0, deceleration)
+	else:
+		velocity.x = lerp(velocity.x, 0, deceleration / 4)
 
 func max_speed_limit():
 	velocity.x = min(velocity.x, max_speed.x)
 	velocity.x = max(velocity.x, -max_speed.x)
 	velocity.y = min(velocity.y, max_speed.y)
 	velocity.y = max(velocity.y, -max_speed.y)
-
-func friction():
-	if is_on_floor():
-		velocity.x = lerp(velocity.x, 0, deceleration)
-	else:
-		pass
 
 func slow_mo_throw_brush():
 	if Input.is_action_pressed("throw_brush") and Brush.picked:
@@ -99,17 +108,15 @@ func shoot_brush(aim_direction):
 	aim_sprite.set_visible(false)
 	if aim_direction.length() > 0:
 		Brush.shoot(aim_direction)
-		print(-aim_direction * 500)
-		velocity = -aim_direction * 500
+		velocity = -aim_direction * shoot_brush_impact
 
 func inactive(milisecond):
 	pass
 
 func set_animations():
-	print(aim_direction)
 	set_facing()
 	animatedSprite.flip_h = !facing
-	if aim_direction.length() > 0:
+	if aim_direction.length() > 0: #Si le player est en train de viser
 		if is_on_floor():
 			if Input.is_action_pressed("move_up"):
 				animatedSprite.animation = "aim_ground_up"
@@ -118,15 +125,20 @@ func set_animations():
 			else:
 				animatedSprite.animation = "aim_ground_middle"
 		else:
-			pass #Animations de shoot en l'air
-	else:
-		if !is_on_floor():
-			if velocity.y < 0:
-				#animatedSprite.animation = "Jump"
-				pass
+			if Input.is_action_pressed("move_up"):
+				animatedSprite.animation = "aim_air_up"
+			elif Input.is_action_pressed("move_down"):
+				animatedSprite.animation = "aim_air_down"
 			else:
-				#animatedSprite.animation = "fall"
-				pass
+				animatedSprite.animation = "aim_air_middle"
+	else:
+		if not is_on_floor() and not is_on_wall():
+			if velocity.y < 0:
+				animatedSprite.animation = "jump"
+			else:
+				animatedSprite.animation = "fall"
+		elif is_on_wall() and can_wall_jump and not is_on_floor():
+			animatedSprite.animation = "hang"
 		else:
 			if get_input_x_strength() != 0:
 				animatedSprite.animation = "run"

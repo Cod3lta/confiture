@@ -15,8 +15,9 @@ func _physics_process(delta):
 	update_grid_position()
 
 func update_grid_position():
-	var x = parent.position.x / grid_size.x
-	var y = parent.position.y / grid_size.y
+	print(str(parent.position.x) + "\t" + str(grid_size.x))
+	var x = (parent.position.x - grid_size.x/2) / (grid_size.x)
+	var y = (parent.position.y - grid_size.y/2) / (grid_size.y)
 	var new_grid_position = Vector2(round(x), round(y))
 	if grid_position == new_grid_position:
 		return
