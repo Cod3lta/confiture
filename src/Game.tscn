@@ -1,11 +1,27 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://src/levels/Level.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/ui/DialogueBox.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/Game.gd" type="Script" id=3]
+[ext_resource path="res://assets/music/music-1.ogg" type="AudioStream" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 17.6396, 20.8067 )
+extents = Vector2( 10, 41.9346 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 14.942, 18.3963 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 26.3229, 51.2367 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 24.6205, 37.5182 )
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 25.2255, 52.595 )
+
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 69.6246, 117.487 )
 
 [node name="Game" type="Node2D"]
 script = ExtResource( 3 )
@@ -18,9 +34,49 @@ script = ExtResource( 3 )
 
 [node name="Triggers" type="Node" parent="."]
 
-[node name="EaselAttic" type="Area2D" parent="Triggers"]
+[node name="Trigger1" type="Area2D" parent="Triggers"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/EaselAttic"]
-position = Vector2( 295.148, -294.24 )
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/Trigger1"]
+position = Vector2( 270.861, 57.4948 )
 shape = SubResource( 1 )
-[connection signal="body_entered" from="Triggers/EaselAttic" to="." method="_on_EaselAttic_body_entered"]
+
+[node name="Trigger2" type="Area2D" parent="Triggers"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/Trigger2"]
+position = Vector2( 155.708, -48.0631 )
+shape = SubResource( 2 )
+
+[node name="Trigger3" type="Area2D" parent="Triggers"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/Trigger3"]
+position = Vector2( 237.055, -336.802 )
+shape = SubResource( 3 )
+
+[node name="Trigger4" type="Area2D" parent="Triggers"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/Trigger4"]
+position = Vector2( 391.784, -318.743 )
+shape = SubResource( 4 )
+
+[node name="Trigger5" type="Area2D" parent="Triggers"]
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/Trigger5"]
+position = Vector2( 309.763, -335.047 )
+shape = SubResource( 5 )
+
+[node name="Trigger6" type="Area2D" parent="Triggers"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/Trigger6"]
+position = Vector2( -561.489, 112.136 )
+shape = SubResource( 6 )
+
+[node name="Sounds" type="Node" parent="."]
+
+[node name="Music_1" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource( 4 )
+[connection signal="body_entered" from="Triggers/Trigger1" to="." method="_on_Trigger1_body_entered"]
+[connection signal="body_entered" from="Triggers/Trigger2" to="." method="_on_Trigger2_body_entered"]
+[connection signal="body_entered" from="Triggers/Trigger3" to="." method="_on_Trigger3_body_entered"]
+[connection signal="body_entered" from="Triggers/Trigger4" to="." method="_on_Trigger4_body_entered"]
+[connection signal="body_entered" from="Triggers/Trigger5" to="." method="_on_Trigger5_body_entered"]

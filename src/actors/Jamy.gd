@@ -25,6 +25,7 @@ var can_wall_jump: bool = true
 
 
 func _ready():
+	
 	$GridSnapper/Camera2D._set_current(true)
 
 func _physics_process(delta):

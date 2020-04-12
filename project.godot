@@ -21,6 +21,7 @@ _global_script_class_icons={
 [application]
 
 config/name="confiture"
+run/main_scene="res://src/Game.tscn"
 config/icon="res://icon.png"
 
 [display]
@@ -98,6 +99,7 @@ throw_brush={
 2d_physics/layer_1="player"
 2d_render/layer_2="brush"
 2d_physics/layer_2="brush"
+2d_physics/layer_3="disable_area2D"
 
 [rendering]
 
