@@ -20,9 +20,12 @@ var deceleration = 0.4
 var velocity = Vector2.ZERO
 var brush_picked: bool = false
 var aim_direction = Vector2.ZERO
-var facing: bool #true -> right, false -> left
+var facing: bool = true #true -> right, false -> left
 var can_wall_jump: bool = true
 
+
+func _ready():
+	$GridSnapper/Camera2D._set_current(true)
 
 func _physics_process(delta):
 	run()

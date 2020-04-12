@@ -64,8 +64,9 @@ func paint():
 			var d_squared = pow(dx, 2) + pow(dy, 2)
 			if d_squared <= pow(brush_radius, 2):
 				#Cercle autour du brush
-				exterieur.set_cell(col, row, 2)
-				exterieur.update_bitmask_area(Vector2(col, row))
+				if exterieur.get_cell(col, row) != -1:
+					exterieur.set_cell(col, row, 2)
+					exterieur.update_bitmask_area(Vector2(col, row))
 				
 				if wood.get_cell(col, row) == 1:
 					wood.set_cell(col, row, 2)
