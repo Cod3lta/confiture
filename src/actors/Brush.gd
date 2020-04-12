@@ -32,8 +32,9 @@ func _integrate_forces(state):
 		state.set_angular_velocity(angle_diff)
 		"""
 
-func _on_PickupDetector_area_shape_entered(area_id, area, area_shape, self_shape):
-	pick()
+func _on_PickupDetector_body_entered(body):
+	if body is KinematicBody2D:
+		pick()
 
 
 func pick():
@@ -41,7 +42,7 @@ func pick():
 	set_gravity_scale(0)
 	set_linear_velocity(Vector2.ZERO)
 	set_applied_force(Vector2.ZERO)
-	brush_radius = 4.5
+	brush_radius = 4.0
 	picked = true
 
 
@@ -71,3 +72,11 @@ func paint():
 				if wood.get_cell(col, row) == 1:
 					wood.set_cell(col, row, 2)
 					wood.update_bitmask_area(Vector2(col, row))
+				
+				if wood.get_cell(col, row) == 8:
+					wood.set_cell(col, row, 6)
+				
+				if wood.get_cell(col, row) == 7:
+					wood.set_cell(col, row, 5)
+				
+

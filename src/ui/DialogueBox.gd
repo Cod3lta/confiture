@@ -1,16 +1,17 @@
 extends Control
 
-signal show_dialogue
 onready var label = $NinePatchRect/ColorRect/RichTextLabel
 var dialogue
 var page = 0
+var stop_player
 onready var timer = $Timer
 
 
 func _ready():
 	hide_dialogue_ui()
 
-func write(new_dialogue):
+func write(new_dialogue, stop_player = true):
+	self.stop_player = stop_player
 	dialogue = new_dialogue
 	show_dialogue_ui()
 	page = 0
@@ -21,11 +22,12 @@ func write(new_dialogue):
 
 func show_dialogue_ui():
 	$NinePatchRect.set_visible(true)
-	emit_signal("show_dialogue", true)
+	if stop_player:
+		get_node("../..").emit_signal("show_dialogue", false)
 
 func hide_dialogue_ui():
 	$NinePatchRect.set_visible(false)
-	emit_signal("show_dialogue", false)
+	get_node("../..").emit_signal("show_dialogue", true)
 
 func _input(event):
 	if event is InputEventKey and event.is_pressed() and event.scancode == KEY_ENTER:

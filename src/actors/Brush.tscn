@@ -34,7 +34,7 @@ shape = SubResource( 2 )
 texture = ExtResource( 3 )
 texture_scale = 0.09
 color = Color( 1, 0.905882, 0.486275, 1 )
-energy = 0.34
+energy = 0.51
 shadow_enabled = true
 shadow_gradient_length = 0.3
-[connection signal="area_shape_entered" from="PickupDetector" to="." method="_on_PickupDetector_area_shape_entered"]
+[connection signal="body_entered" from="PickupDetector" to="." method="_on_PickupDetector_body_entered"]

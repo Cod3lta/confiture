@@ -173,4 +173,5 @@ z_index = 1
 texture = ExtResource( 4 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "introduction_zoom_out"
 anims/introduction_zoom_out = SubResource( 4 )

@@ -1,15 +1,16 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://src/levels/Level.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/ui/DialogueBox.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/Game.gd" type="Script" id=3]
 [ext_resource path="res://assets/music/music-1.ogg" type="AudioStream" id=4]
+[ext_resource path="res://assets/music/music-2.ogg" type="AudioStream" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 10, 41.9346 )
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 14.942, 18.3963 )
+extents = Vector2( 6.9519, 18.3963 )
 
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 26.3229, 51.2367 )
@@ -21,7 +22,28 @@ extents = Vector2( 24.6205, 37.5182 )
 extents = Vector2( 25.2255, 52.595 )
 
 [sub_resource type="RectangleShape2D" id=6]
-extents = Vector2( 69.6246, 117.487 )
+extents = Vector2( 13.8776, 117.487 )
+
+[sub_resource type="RectangleShape2D" id=7]
+extents = Vector2( 21.0491, 26.2145 )
+
+[sub_resource type="RectangleShape2D" id=8]
+extents = Vector2( 10, 81.0553 )
+
+[sub_resource type="RectangleShape2D" id=9]
+extents = Vector2( 12.0197, 93.799 )
+
+[sub_resource type="RectangleShape2D" id=10]
+extents = Vector2( 11.1692, 37.8299 )
+
+[sub_resource type="RectangleShape2D" id=11]
+extents = Vector2( 13.0559, 41.2261 )
+
+[sub_resource type="RectangleShape2D" id=12]
+extents = Vector2( 10, 42.225 )
+
+[sub_resource type="RectangleShape2D" id=13]
+extents = Vector2( 10, 50.1176 )
 
 [node name="Game" type="Node2D"]
 script = ExtResource( 3 )
@@ -43,7 +65,7 @@ shape = SubResource( 1 )
 [node name="Trigger2" type="Area2D" parent="Triggers"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/Trigger2"]
-position = Vector2( 155.708, -48.0631 )
+position = Vector2( 159.97, -48.4505 )
 shape = SubResource( 2 )
 
 [node name="Trigger3" type="Area2D" parent="Triggers"]
@@ -55,7 +77,7 @@ shape = SubResource( 3 )
 [node name="Trigger4" type="Area2D" parent="Triggers"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/Trigger4"]
-position = Vector2( 391.784, -318.743 )
+position = Vector2( 409.929, -318.585 )
 shape = SubResource( 4 )
 
 [node name="Trigger5" type="Area2D" parent="Triggers"]
@@ -68,15 +90,74 @@ shape = SubResource( 5 )
 [node name="Trigger6" type="Area2D" parent="Triggers"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/Trigger6"]
-position = Vector2( -561.489, 112.136 )
+position = Vector2( -560.791, 112.136 )
 shape = SubResource( 6 )
+
+[node name="Trigger7" type="Area2D" parent="Triggers"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/Trigger7"]
+position = Vector2( -908.096, 129.553 )
+shape = SubResource( 7 )
+
+[node name="Trigger8" type="Area2D" parent="Triggers"]
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/Trigger8"]
+position = Vector2( -808.832, 80.9156 )
+shape = SubResource( 8 )
+
+[node name="Trigger9" type="Area2D" parent="Triggers"]
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/Trigger9"]
+position = Vector2( -730.459, 91.9868 )
+shape = SubResource( 9 )
+
+[node name="Trigger10" type="Area2D" parent="Triggers"]
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/Trigger10"]
+position = Vector2( 173.961, 199.243 )
+shape = SubResource( 10 )
+
+[node name="Trigger11" type="Area2D" parent="Triggers"]
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/Trigger11"]
+position = Vector2( 283.771, 199.243 )
+shape = SubResource( 11 )
+
+[node name="Trigger12" type="Area2D" parent="Triggers"]
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/Trigger12"]
+position = Vector2( 414.411, 193.583 )
+shape = SubResource( 12 )
+
+[node name="Trigger13" type="Area2D" parent="Triggers"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/Trigger13"]
+position = Vector2( 529.399, 193.474 )
+shape = SubResource( 13 )
 
 [node name="Sounds" type="Node" parent="."]
 
 [node name="Music_1" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource( 4 )
+
+[node name="Music_2" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource( 5 )
+[connection signal="show_dialogue" from="." to="Level" method="_on_Game_show_dialogue"]
 [connection signal="body_entered" from="Triggers/Trigger1" to="." method="_on_Trigger1_body_entered"]
 [connection signal="body_entered" from="Triggers/Trigger2" to="." method="_on_Trigger2_body_entered"]
 [connection signal="body_entered" from="Triggers/Trigger3" to="." method="_on_Trigger3_body_entered"]
 [connection signal="body_entered" from="Triggers/Trigger4" to="." method="_on_Trigger4_body_entered"]
 [connection signal="body_entered" from="Triggers/Trigger5" to="." method="_on_Trigger5_body_entered"]
+[connection signal="body_entered" from="Triggers/Trigger6" to="." method="_on_Trigger6_body_entered"]
+[connection signal="body_entered" from="Triggers/Trigger7" to="." method="_on_Trigger7_body_entered"]
+[connection signal="body_entered" from="Triggers/Trigger8" to="." method="_on_Trigger8_body_entered"]
+[connection signal="body_entered" from="Triggers/Trigger9" to="." method="_on_Trigger9_body_entered"]
+[connection signal="body_entered" from="Triggers/Trigger10" to="." method="_on_Trigger10_body_entered"]
+[connection signal="body_entered" from="Triggers/Trigger11" to="." method="_on_Trigger11_body_entered"]
+[connection signal="body_entered" from="Triggers/Trigger12" to="." method="_on_Trigger12_body_entered"]
+[connection signal="body_entered" from="Triggers/Trigger13" to="." method="_on_Trigger13_body_entered"]

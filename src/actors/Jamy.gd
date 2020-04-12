@@ -22,6 +22,7 @@ var brush_picked: bool = false
 var aim_direction = Vector2.ZERO
 var facing: bool = true #true -> right, false -> left
 var can_wall_jump: bool = true
+var can_move: bool = true
 
 
 func _ready():
@@ -43,14 +44,15 @@ func fall(delta):
 
 
 func jump(delta):
-	if Input.is_action_just_pressed("jump"):
-		if is_on_floor():
-			can_wall_jump = true
-			velocity.y = -jump_amount
-		elif is_on_wall() and can_wall_jump:
-			velocity.y = -jump_amount
-			velocity.x = wall_jump_amount if !facing else -wall_jump_amount
-			can_wall_jump = false
+	if can_move:
+		if Input.is_action_just_pressed("jump"):
+			if is_on_floor():
+				can_wall_jump = true
+				velocity.y = -jump_amount
+			elif is_on_wall() and can_wall_jump:
+				velocity.y = -jump_amount
+				velocity.x = wall_jump_amount if !facing else -wall_jump_amount
+				can_wall_jump = false
 
 
 func get_input_x_strength():
@@ -59,15 +61,16 @@ func get_input_x_strength():
 
 func run():
 	var player_input_x = get_input_x_strength()
-	if not Input.is_action_pressed("throw_brush") or aim_direction.length() == 0:
-		var walk_acceleration
-		if(is_on_floor()):
-			walk_acceleration = player_input_x * acceleration
-		else:
-			walk_acceleration = player_input_x * acceleration / 5
-		if not (velocity.x + walk_acceleration > max_walk_speed or velocity.x + walk_acceleration < -max_walk_speed):
-			#Moment d'accélération
-			velocity.x += walk_acceleration
+	if can_move:
+		if not Input.is_action_pressed("throw_brush") or aim_direction.length() == 0:
+			var walk_acceleration
+			if(is_on_floor()):
+				walk_acceleration = player_input_x * acceleration
+			else:
+				walk_acceleration = player_input_x * acceleration / 5
+			if not (velocity.x + walk_acceleration > max_walk_speed or velocity.x + walk_acceleration < -max_walk_speed):
+				#Moment d'accélération
+				velocity.x += walk_acceleration
 	
 	friction()
 
@@ -118,6 +121,9 @@ func inactive(milisecond):
 	pass
 
 func set_animations():
+	if !can_move:
+		animatedSprite.animation = "idle"
+		return
 	set_facing()
 	animatedSprite.flip_h = !facing
 	if aim_direction.length() > 0: #Si le player est en train de viser
