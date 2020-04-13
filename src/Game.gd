@@ -173,4 +173,9 @@ func _on_Trigger15_body_entered(body):
 
 func _on_Trigger16_body_entered(body):
 	if body is KinematicBody2D:
-		get_tree().change_scene("res://path/to/scene.tscn")
+		get_tree().change_scene("res://src/Credits.tscn")
+
+
+func _on_Trigger17_body_entered(body):
+	if body is KinematicBody2D:
+		$Sounds/Music_2.stop()

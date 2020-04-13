@@ -52,10 +52,10 @@ func jump(delta):
 			if is_on_floor():
 				can_wall_jump = true
 				velocity.y = -jump_amount
-			elif is_on_wall() and can_wall_jump:
+			"""elif is_on_wall() and can_wall_jump:
 				velocity.y = -jump_amount
 				velocity.x = wall_jump_amount if !facing else -wall_jump_amount
-				can_wall_jump = false
+				can_wall_jump = false"""
 
 
 func get_input_x_strength():
@@ -152,8 +152,8 @@ func set_animations():
 				animatedSprite.animation = "jump"
 			else:
 				animatedSprite.animation = "fall"
-		elif is_on_wall() and can_wall_jump and not is_on_floor():
-			animatedSprite.animation = "hang"
+		#elif is_on_wall() and can_wall_jump and not is_on_floor():
+			#animatedSprite.animation = "hang"
 		else:
 			if get_input_x_strength() != 0:
 				animatedSprite.animation = "run"
