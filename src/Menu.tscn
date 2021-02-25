@@ -32,22 +32,52 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
 margin_right = 420.0
 margin_bottom = 210.0
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
-margin_right = 420.0
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+margin_right = 262.0
+margin_bottom = 210.0
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+margin_right = 262.0
 margin_bottom = 68.0
 theme = SubResource( 2 )
 text = "Easelement"
 
-[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="Label2" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
 margin_top = 72.0
-margin_right = 420.0
-margin_bottom = 91.0
+margin_right = 262.0
+margin_bottom = 81.0
 theme = ExtResource( 2 )
 text = "Que signifie \"Rester chez soi\" ?"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+margin_left = 266.0
+margin_right = 420.0
+margin_bottom = 210.0
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer2"]
+margin_right = 154.0
+margin_bottom = 165.0
+theme = ExtResource( 2 )
+text = "Un jeu créé par Codelta lors de la Game Jam 
+Créer son Jeu #1, en avril 2020
+
+Petite fierté : le jeu est
+arrivé premier :)
+
+Pensez à télécharger le jeu
+pour avoir de meilleures
+performances !
+
+Viser / Se déplacer :
+[WASD] / [ZQSD] / touches flechées
+Viser : [MAJ]
+Sauter : [ESPACE]"
+align = 2
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = -1
@@ -83,10 +113,10 @@ __meta__ = {
 }
 
 [node name="TextureRect" type="TextureRect" parent="."]
-margin_left = 396.681
-margin_top = 173.94
-margin_right = 460.681
-margin_bottom = 269.94
+margin_left = 231.008
+margin_top = 174.143
+margin_right = 295.008
+margin_bottom = 270.143
 texture = ExtResource( 4 )
 expand = true
 flip_h = true
@@ -95,10 +125,10 @@ __meta__ = {
 }
 
 [node name="TextureRect2" type="TextureRect" parent="."]
-margin_left = 420.453
-margin_top = 236.191
-margin_right = 453.453
-margin_bottom = 269.191
+margin_left = 279.284
+margin_top = 243.891
+margin_right = 312.284
+margin_bottom = 276.891
 rect_rotation = 166.077
 texture = ExtResource( 5 )
 expand = true

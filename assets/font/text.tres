@@ -3,7 +3,8 @@
 [ext_resource path="res://assets/font/BalooTammudu2-Medium.ttf" type="DynamicFontData" id=1]
 
 [sub_resource type="DynamicFont" id=1]
-size = 11
+size = 9
+extra_spacing_space = 1
 font_data = ExtResource( 1 )
 
 [resource]

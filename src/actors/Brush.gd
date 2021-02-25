@@ -26,11 +26,6 @@ func _integrate_forces(state):
 		var xform = state.get_transform()
 		xform.origin = brush_position
 		state.set_transform(xform)
-		
-		"""var angle_diff = PI/2 - Jamy.aim_direction.angle()
-		print(Jamy.aim_direction.angle())
-		state.set_angular_velocity(angle_diff)
-		"""
 
 func _on_PickupDetector_body_entered(body):
 	if body is KinematicBody2D:

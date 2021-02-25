@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=2]
+[gd_scene load_steps=37 format=2]
 
 [ext_resource path="res://src/actors/Jamy.gd" type="Script" id=1]
 [ext_resource path="res://src/actors/GridSnapper.gd" type="Script" id=2]
@@ -28,6 +28,10 @@
 [ext_resource path="res://assets/player/fall/fall_2.png" type="Texture" id=26]
 [ext_resource path="res://assets/player/jump/jump_0.png" type="Texture" id=27]
 [ext_resource path="res://assets/player/hang/hang_0.png" type="Texture" id=28]
+[ext_resource path="res://assets/music/running2.wav" type="AudioStream" id=29]
+[ext_resource path="res://assets/music/running1.wav" type="AudioStream" id=30]
+[ext_resource path="res://assets/music/running3.wav" type="AudioStream" id=31]
+[ext_resource path="res://assets/music/running4.wav" type="AudioStream" id=32]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 7.5, 11.75 )
@@ -42,29 +46,9 @@ animations = [ {
 "name": "idle",
 "speed": 3.0
 }, {
-"frames": [ ExtResource( 9 ), ExtResource( 10 ), ExtResource( 12 ), ExtResource( 11 ), ExtResource( 16 ), ExtResource( 15 ), ExtResource( 13 ), ExtResource( 14 ) ],
-"loop": true,
-"name": "run",
-"speed": 12.0
-}, {
-"frames": [ ExtResource( 23 ), ExtResource( 24 ), ExtResource( 26 ), ExtResource( 25 ) ],
-"loop": true,
-"name": "fall",
-"speed": 10.0
-}, {
-"frames": [ ExtResource( 27 ) ],
-"loop": true,
-"name": "jump",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 17 ) ],
 "loop": true,
 "name": "aim_ground_middle",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 18 ) ],
-"loop": true,
-"name": "aim_ground_down",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 19 ) ],
@@ -77,6 +61,16 @@ animations = [ {
 "name": "hang",
 "speed": 5.0
 }, {
+"frames": [ ExtResource( 18 ) ],
+"loop": true,
+"name": "aim_ground_down",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 20 ) ],
+"loop": true,
+"name": "aim_air_middle",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 22 ) ],
 "loop": true,
 "name": "aim_air_up",
@@ -87,10 +81,20 @@ animations = [ {
 "name": "aim_air_down",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 20 ) ],
+"frames": [ ExtResource( 27 ) ],
 "loop": true,
-"name": "aim_air_middle",
+"name": "jump",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 23 ), ExtResource( 24 ), ExtResource( 26 ), ExtResource( 25 ) ],
+"loop": true,
+"name": "fall",
+"speed": 10.0
+}, {
+"frames": [ ExtResource( 9 ), ExtResource( 10 ), ExtResource( 12 ), ExtResource( 11 ), ExtResource( 16 ), ExtResource( 15 ), ExtResource( 13 ), ExtResource( 14 ) ],
+"loop": true,
+"name": "run",
+"speed": 12.0
 } ]
 
 [sub_resource type="Animation" id=4]
@@ -147,6 +151,7 @@ position = Vector2( -3.93391e-06, -13.9833 )
 scale = Vector2( 1.16527, 1.16527 )
 frames = SubResource( 3 )
 animation = "idle"
+frame = 2
 playing = true
 
 [node name="GridSnapper" type="Position2D" parent="."]
@@ -173,3 +178,29 @@ texture = ExtResource( 4 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/introduction_zoom_out = SubResource( 4 )
+
+[node name="Footsteps" type="Node" parent="."]
+
+[node name="TimerFootsteps" type="Timer" parent="Footsteps"]
+wait_time = 0.302
+
+[node name="PlayerFootsteps1" type="AudioStreamPlayer" parent="Footsteps"]
+stream = ExtResource( 30 )
+volume_db = -15.0
+
+[node name="PlayerFootsteps2" type="AudioStreamPlayer" parent="Footsteps"]
+stream = ExtResource( 29 )
+volume_db = -15.0
+
+[node name="PlayerFootsteps3" type="AudioStreamPlayer" parent="Footsteps"]
+stream = ExtResource( 31 )
+volume_db = -15.0
+
+[node name="PlayerFootsteps4" type="AudioStreamPlayer" parent="Footsteps"]
+stream = ExtResource( 32 )
+volume_db = -15.0
+[connection signal="timeout" from="Footsteps/TimerFootsteps" to="." method="play_footstep"]
+[connection signal="finished" from="Footsteps/PlayerFootsteps1" to="." method="_on_PlayerFootsteps_finished"]
+[connection signal="finished" from="Footsteps/PlayerFootsteps2" to="." method="_on_PlayerFootsteps_finished"]
+[connection signal="finished" from="Footsteps/PlayerFootsteps3" to="." method="_on_PlayerFootsteps_finished"]
+[connection signal="finished" from="Footsteps/PlayerFootsteps4" to="." method="_on_PlayerFootsteps_finished"]

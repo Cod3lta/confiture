@@ -52,7 +52,7 @@ extents = Vector2( 26.4941, 158.38 )
 extents = Vector2( 38.3629, 17.728 )
 
 [sub_resource type="RectangleShape2D" id=16]
-extents = Vector2( 10.9054, 78.8439 )
+extents = Vector2( 11.4563, 45.245 )
 
 [sub_resource type="RectangleShape2D" id=17]
 extents = Vector2( 28.2446, 150.802 )
@@ -168,7 +168,7 @@ shape = SubResource( 15 )
 monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/Trigger16"]
-position = Vector2( 198.785, 83.3778 )
+position = Vector2( 329.239, 55.3637 )
 shape = SubResource( 16 )
 
 [node name="Trigger17" type="Area2D" parent="Triggers"]
@@ -184,6 +184,9 @@ stream = ExtResource( 4 )
 
 [node name="Music_2" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource( 5 )
+
+[node name="Music_2_decreaser" type="Timer" parent="Sounds"]
+wait_time = 0.001
 [connection signal="show_dialogue" from="." to="Level" method="_on_Game_show_dialogue"]
 [connection signal="body_entered" from="Triggers/Trigger1" to="." method="_on_Trigger1_body_entered"]
 [connection signal="body_entered" from="Triggers/Trigger2" to="." method="_on_Trigger2_body_entered"]
@@ -202,3 +205,4 @@ stream = ExtResource( 5 )
 [connection signal="body_entered" from="Triggers/Trigger15" to="." method="_on_Trigger15_body_entered"]
 [connection signal="body_entered" from="Triggers/Trigger16" to="." method="_on_Trigger16_body_entered"]
 [connection signal="body_entered" from="Triggers/Trigger17" to="." method="_on_Trigger17_body_entered"]
+[connection signal="timeout" from="Sounds/Music_2_decreaser" to="." method="_on_Music_2_decreaser_timeout"]

@@ -25,6 +25,7 @@ var aim_direction = Vector2.ZERO
 var facing: bool = true #true -> right, false -> left
 var can_wall_jump: bool = true
 var can_move: bool = true
+var is_moving: bool = false
 
 
 func _ready():
@@ -40,7 +41,7 @@ func _physics_process(delta):
 	slow_mo_throw_brush()
 	set_animations()
 	detect_easel()
-
+	footsteps(abs(velocity.x) > 80)
 
 func fall(delta):
 	velocity.y += gravity * delta
@@ -122,9 +123,6 @@ func shoot_brush(aim_direction):
 		Brush.shoot(aim_direction)
 		velocity = -aim_direction * shoot_brush_impact
 
-func inactive(milisecond):
-	pass
-
 func set_animations():
 	if !can_move:
 		animatedSprite.animation = "idle"
@@ -162,9 +160,9 @@ func set_animations():
 	
 
 func set_facing():
-	if Input.is_action_just_pressed("move_right"):
+	if Input.is_action_pressed("move_right") and not Input.is_action_pressed("move_left"):
 		facing = true
-	elif Input.is_action_just_pressed("move_left"):
+	elif Input.is_action_pressed("move_left") and not Input.is_action_pressed("move_right"):
 		facing = false
 
 
@@ -173,6 +171,8 @@ func detect_easel():
 	var wood_deco_position = wood_deco.world_to_map(position)
 	var wood_deco_2_position = wood_deco.world_to_map(position)
 	
+	if wood_deco.get_cell(wood_deco_position.x-1, wood_deco_position.y-2) == 27:
+		easel_detected = true
 	if wood_deco.get_cell(wood_deco_position.x, wood_deco_position.y-2) == 27:
 		easel_detected = true
 	if wood_deco_2.get_cell(wood_deco_2_position.x-1, wood_deco_2_position.y-2) == 27:
@@ -184,3 +184,17 @@ func detect_easel():
 	
 	if easel_detected:
 		Brush.pick()
+
+func footsteps(is_now_moving):
+	if is_now_moving and not is_moving and is_on_floor():
+		$Footsteps/TimerFootsteps.start()
+		is_moving = true
+		play_footstep()
+	elif not is_now_moving and is_moving or not is_on_floor():
+		$Footsteps/TimerFootsteps.stop()
+		is_moving = false
+
+func play_footstep():
+	var footstep_to_play = randi() % 4 + 1
+	$Footsteps/PlayerFootsteps
+	get_node("Footsteps/PlayerFootsteps" + str(footstep_to_play)).play()

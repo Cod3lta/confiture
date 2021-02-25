@@ -68,7 +68,6 @@ func _on_Trigger4_body_entered(body):
 
 
 func _on_Trigger5_body_entered(body):
-	print("Enter area 5")
 	if body is KinematicBody2D:
 		$Sounds/Music_1.play()
 		$Triggers/Trigger5.queue_free()
@@ -164,8 +163,8 @@ func _on_Trigger15_body_entered(body):
 			"Raaaaaaaaah",
 			"C'était un rêve . . .",
 			"J'avais enfin l'opportunité de faire quelque chose . . .",
-			"Bon, tant pis.",
-			"Profitons-en pour dormir encore un peu . . ."
+			"Bon, bah tant pis j'imagine",
+			"Maintenant que je suis réveillé, commençons donc la journée."
 			]
 		dialogue_box.write(dialog, true)
 		$Triggers/Trigger15.queue_free()
@@ -178,4 +177,11 @@ func _on_Trigger16_body_entered(body):
 
 func _on_Trigger17_body_entered(body):
 	if body is KinematicBody2D:
+		$Sounds/Music_2_decreaser.start()
+		# $Sounds/Music_2.stop()
+
+
+func _on_Music_2_decreaser_timeout():
+	$Sounds/Music_2.volume_db -= 0.07
+	if $Sounds/Music_2.volume_db < -50 :
 		$Sounds/Music_2.stop()

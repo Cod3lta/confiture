@@ -8,7 +8,6 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	print($House/WoodDeco.world_to_map(get_global_mouse_position()))
 	pass
 
 func open_garden():
